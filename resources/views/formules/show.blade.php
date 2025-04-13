@@ -13,7 +13,7 @@
         </div>
         @endforeach
 
-        <button type="button" class="btn btn-success text-white bg-green-600 px-4 py-2 rounded" id="btn-resultat">Résultat</button>
+        <button type="button" class="btn btn-success text-white bg-green-600 px-4 py-2 rounded" id="btn-resultat">Calculer le résultat</button>
     </form>
 
     <hr>
@@ -25,10 +25,18 @@
         </div>
     </div>
 
+    <hr class="mb-4">
+    
+    <!-- BOUTON GÉNÉRER LE PDF -->
+    <div class="text-center mt-6">
+        <button id="show-pdf-btn" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded mb-4">
+            Afficher le fichier PDF
+        </button>
+    </div>
     <!-- partie Document pdf -->
-
-    <div class="max-w-3xl mx-auto bg-white p-6 rounded-lg shadow-md border border-gray-200" id="pdf-content">
-
+    
+    <div class="hidden w-4/5 mx-auto bg-white p-6 rounded-lg shadow-md border border-gray-200" id="pdf-content">
+        
         <!-- EN-TÊTE -->
         <div class="flex justify-between items-center mb-4">
             <div>
@@ -42,20 +50,20 @@
                 <p class="text-sm text-gray-500">Téléphone : +212 6 00 00 00 00</p>
             </div>
         </div>
-
+        
         <!-- INTRO -->
         <p class="mb-6 text-gray-700 leading-relaxed">
             Ce document présente le résultat du calcul de <strong>{{ $formule->nom }}</strong>, réalisé selon les paramètres saisis ci-dessous.
             Le calcul est basé sur la formule suivante :
-            <span class="italic">{{ $formule->expression }}</span>
-        </p>
-
-        <!-- TABLEAU DES PARAMÈTRES -->
-        <table class="w-full text-left border border-gray-300 mb-6">
-            <thead>
-                <tr class="bg-gray-100">
-                    <th class="border px-4 py-2 w-1/2">Paramètre</th>
-                    <th class="border px-4 py-2">Valeur saisie</th>
+                <span class="italic">{{ $formule->expression }}</span>
+            </p>
+            
+            <!-- TABLEAU DES PARAMÈTRES -->
+            <table class="w-full text-left border border-gray-300 mb-6">
+                <thead>
+                    <tr class="bg-gray-100">
+                        <th class="border px-4 py-2 w-1/2">Paramètre</th>
+                        <th class="border px-4 py-2">Valeur saisie</th>
                 </tr>
             </thead>
             <tbody>
@@ -72,20 +80,19 @@
                 </tr>
             </tbody>
         </table>
-
+        
         <!-- PIED DE PAGE ENTREPRISE -->
         <div class="text-center text-sm text-gray-500 mt-8 border-t pt-4">
             SID ENVIRONNEMENT · N° 12 Quartier Industriel, Ksabi Moulouya · contact@sid-environnement.ma · +212 6 00 00 00 00
         </div>
     </div>
-
-    <!-- BOUTON GÉNÉRER LE PDF -->
+    
     <div class="text-center mt-6">
-        <button onclick="generatePDF()" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded">
+        <button id="generate-pdf-btn" onclick="generatePDF()" class="hidden bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded mb-4">
             Générer un PDF
         </button>
     </div>
-
+    
 </div>
 @endsection
 

@@ -57,3 +57,12 @@ function generatePDF() {
 }
 
 window.generatePDF = generatePDF; // Rendre la fonction accessible globalement
+
+let showPDFButton = document.getElementById('show-pdf-btn');
+let pdfContent = document.getElementById('pdf-content');
+let generatePdfBtn = document.getElementById('generate-pdf-btn');
+
+showPDFButton.addEventListener('click', function() {
+    pdfContent.classList.remove('hidden');
+    generatePdfBtn.classList.remove('hidden');
+});
