@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class ChampFormule extends Model
 {
-    protected $fillable = ['formule_id', 'nom_champ', 'libelle'];
+    protected $fillable = ['formule_id', 'nom_champ', 'libelle', 'unite'];
 
 
     public function formule()
