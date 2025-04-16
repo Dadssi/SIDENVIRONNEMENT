@@ -5,6 +5,12 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById('btn-resultat').addEventListener('click', function () {
         console.log("🔍 Bouton 'Calculer' cliqué");
         calculer();
+        // ===========================
+        calculData.champs.forEach(function(champ) {
+            const inputValue = document.getElementById(champ).value;
+            document.getElementById('pdf-' + champ).value = inputValue;
+        });
+        // ===========================
     });
 
     function calculer() {
@@ -33,7 +39,9 @@ document.addEventListener("DOMContentLoaded", function () {
         try {
             let formuleCalculee = expression;
             Object.keys(valeurs).forEach(key => {
-                formuleCalculee = formuleCalculee.replace(new RegExp('\\b' + key + '\\b', 'g'), valeurs[key]);
+                // formuleCalculee = formuleCalculee.replace(new RegExp('\\b' + key + '\\b', 'g'), valeurs[key]);
+                formuleCalculee = formuleCalculee.replaceAll(`{${key}}`, valeurs[key]);
+
             });
             console.log("🔍 Expression après remplacement :", formuleCalculee);
 

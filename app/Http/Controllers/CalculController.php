@@ -30,12 +30,35 @@ class CalculController extends Controller
 
 
 
-public function genererPDF($id)
-{
-    $calcul = Calcul::findOrFail($id);
+// public function genererPDF($id)
+// {
+//     $calcul = Calcul::findOrFail($id);
 
-    $pdf = Pdf::loadView('pdf.resultat', compact('calcul'));
-    return $pdf->download('resultat.pdf');
+//     $pdf = Pdf::loadView('pdf.resultat', compact('calcul'));
+//     return $pdf->download('resultat.pdf');
+// }
+
+public function telechargerPDF(Request $request)
+{
+    $formule = Formule::findOrFail($request->formule_id);
+    $expression = $formule->expression;
+
+    $parametres = $request->except(['_token', 'formule_id']);
+
+    foreach ($parametres as $cle => $valeur) {
+        $expression = str_replace($cle, $valeur, $expression);
+    }
+
+    try {
+        $resultat = eval("return $expression;");
+    } catch (\Throwable $e) {
+        $resultat = "Erreur de calcul";
+    }
+
+    $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView('pdf.calcul', compact('formule', 'parametres', 'resultat'));
+
+    return $pdf->download('resultat_calcul.pdf');
 }
+
 
 }

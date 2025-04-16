@@ -100,9 +100,23 @@
     </div>
     
 </div>
+<form method="POST" action="{{ route('calcul.pdf') }}" id="pdfForm">
+    @csrf
+    <input type="hidden" name="formule_id" value="{{ $formule->id }}">
+
+    <!-- Ces champs seront remplis dynamiquement en JS -->
+    @foreach($formule->champs as $champ)
+        <input type="hidden" name="{{ $champ->nom_champ }}" id="pdf-{{ $champ->nom_champ }}">
+    @endforeach
+
+    <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded">
+        📄 Télécharger le résultat en PDF
+    </button>
+</form>
 @endsection
 
 @section('scripts')
+<!-- Script JS -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 <script>
     window.calculData = {
@@ -116,38 +130,8 @@
 
 
 
-    <!-- Contenu statique -->
-<div id="test-pdf" style="padding: 20px; border: 1px solid #ccc; margin-top: 20px;">
-  <h1>Bonjour depuis SID Environnement</h1>
-  <p>Ceci est un test de génération de PDF avec un contenu simple et statique.</p>
-</div>
 
-<!-- Bouton pour générer le PDF -->
-<button onclick="genererPDFTest()">Générer PDF test</button>
 
-<!-- Script html2pdf -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
-<!-- Script JS -->
-<script>
-  function genererPDFTest() {
-    const element = document.getElementById('test-pdf');
-
-    // Options PDF
-    const opt = {
-      margin:       0.5,
-      filename:     'test-pdf.pdf',
-      image:        { type: 'jpeg', quality: 0.98 },
-      html2canvas:  { scale: 2 },
-      jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' }
-    };
-
-    console.log("🚀 Lancement du test PDF");
-    html2pdf().set(opt).from(element).save();
-  }
-</script>
-<script>
-  console.log("✅ Script html2pdf chargé ?", typeof html2pdf !== 'undefined');
-</script>
 
 @endsection
