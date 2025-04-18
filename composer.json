@@ -8,6 +8,9 @@
     "require": {
         "php": "^8.2",
         "barryvdh/laravel-dompdf": "^3.1",
+        "laravel-lang/common": "^6.7",
+        "laravel-lang/http-statuses": "^3.10",
+        "laravel-lang/publisher": "^16.6",
         "laravel/framework": "^11.31",
         "laravel/tinker": "^2.9"
     },
